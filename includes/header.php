@@ -5,7 +5,6 @@
     <title>PIHCSA - Registro de Documentación</title>
     <link rel="stylesheet" type="text/css" href="css/styles.css" />
     <style>
-        /* Estilos específicos para la sección de privacidad */
         .contenedor-privacidad {
             background-color: #f8f9fa;
             padding: 15px;
@@ -32,3 +31,16 @@
         }
     </style>
 </head>
+<body>
+
+<header style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 10px 20px;">
+    
+    <div class="logo">
+        </div>
+
+    <div class="header-actions">
+        <a href="login.php" class="btn_pihcsa" style="text-decoration: none; font-size: 0.9rem;">
+            Portal Admin
+        </a>
+    </div>
+</header>

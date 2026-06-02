@@ -7,182 +7,208 @@ if (isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true
 }
 
 require_once 'conexion.php';
-
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = mysqli_real_escape_string($conexion, strtolower(trim($_POST['username'])));
-    $password = trim($_POST['password']);
+    if (isset($_POST['username']) && isset($_POST['password'])) {
+        $username = mysqli_real_escape_string($conexion, strtolower(trim($_POST['username'])));
+        $password = trim($_POST['password']);
 
-    if (!empty($username) && !empty($password)) {
-        $sql = "SELECT id, password, nombre FROM usuarios_admin WHERE username = '$username' LIMIT 1";
-        $resultado = mysqli_query($conexion, $sql);
+        if (!empty($username) && !empty($password)) {
+            $sql = "SELECT id, password, nombre FROM usuarios_admin WHERE username = '$username' LIMIT 1";
+            $resultado = mysqli_query($conexion, $sql);
 
-        if ($resultado && mysqli_num_rows($resultado) == 1) {
-            $usuario = mysqli_fetch_assoc($resultado);
-            
-            if (password_verify($password, $usuario['password'])) {
-                $_SESSION['admin_logged_in'] = true;
-                $_SESSION['admin_id'] = $usuario['id'];
-                $_SESSION['admin_nombre'] = $usuario['nombre'];
-
-                header("Location: admin.php");
-                exit;
+            if ($resultado && mysqli_num_rows($resultado) == 1) {
+                $usuario = mysqli_fetch_assoc($resultado);
+                $hashed_input = hash('sha256', $password);
+                
+                if ($hashed_input === $usuario['password']) {
+                    $_SESSION['admin_logged_in'] = true;
+                    $_SESSION['admin_id'] = $usuario['id'];
+                    $_SESSION['admin_nombre'] = $usuario['nombre'];
+                    header("Location: admin.php");
+                    exit;
+                } else {
+                    $error = "Contraseña incorrecta.";
+                }
             } else {
-                $error = "Contraseña incorrecta.";
+                $error = "El usuario no existe.";
             }
-        } else {
-            $error = "El usuario no existe.";
         }
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Administrador PIHCSA</title>
-    <style>
-        .contenedor_formulario {
-            width: 1000px;
-            margin: 20px auto;
-            border: 1px solid #ddd;
-            padding: 40px 50px;
-            background: #fff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            border-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        .producto-titulo h3 {
-            color: #005596; 
-            border-bottom: 2px solid #005596; 
-            padding-bottom: 10px;
-            margin-top: 0;
-            margin-bottom: 25px;
-            font-size: 22px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: #f4f6f9;
+        font-family: 'Segoe UI', sans-serif;
+        padding: 20px;
+    }
 
-        .segmento-campo {
-            margin-bottom: 20px;
-        }
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        background: #ffffff;
+        border-radius: 10px;
+        padding: 35px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.08);
+        border-top: 5px solid #005596;
+    }
 
-        .segmento-campo p {
-            margin: 0 0 8px 0;
-            font-size: 13px;
-            font-weight: bold;
-            color: #333;
-        }
+    .login-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
 
-        .campo {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 14px;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
+    .login-header h2 {
+        color: #005596;
+        font-size: 24px;
+        margin-bottom: 8px;
+    }
 
-        .campo:focus {
-            border-color: #005596;
-        }
+    .login-header p {
+        color: #666;
+        font-size: 14px;
+    }
 
-        .btn_pihcsa {
-            background: #005596;
-            color: #fff;
-            border: none;
-            padding: 12px 40px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            border-radius: 4px;
-            font-size: 14px;
-            transition: background 0.3s ease;
-        }
+    .form-group {
+        margin-bottom: 20px;
+    }
 
-        .btn_pihcsa:hover { 
-            background: #003d6b; 
-        }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        color: #333;
+    }
 
-        body { 
-            background-color: #f4f6f9; 
-            margin: 0; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+    .form-control {
+        width: 100%;
+        height: 45px;
+        border: 1px solid #dcdcdc;
+        border-radius: 6px;
+        padding: 0 15px;
+        font-size: 14px;
+        transition: .3s;
+    }
 
-        .login-actions {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
+    .form-control:focus {
+        outline: none;
+        border-color: #005596;
+        box-shadow: 0 0 0 3px rgba(0,85,150,.1);
+    }
 
-        .btn-back {
-            color: #555;
-            font-size: 14px;
-            font-weight: 600;
-            text-decoration: none;
-            font-family: 'Segoe UI', sans-serif;
-            transition: color 0.2s ease;
-        }
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 25px;
+    }
 
-        .btn-back:hover {
-            color: #005596;
-            text-decoration: underline;
-        }
+    .btn-login {
+        background: #005596;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: .3s;
+    }
 
-        .error-msg { 
-            color: #d9534f; 
-            background: #fdf7f7; 
-            padding: 12px; 
-            border-radius: 4px; 
-            margin-bottom: 20px; 
-            text-align: center; 
-            font-size: 14px; 
-            border: 1px solid #d9534f;
-            font-family: 'Segoe UI', sans-serif;
-        }
-    </style>
-</head>
+    .btn-login:hover {
+        background: #003d6b;
+    }
+
+    .btn-back {
+        color: #666;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .btn-back:hover {
+        color: #005596;
+    }
+
+    .error-msg {
+        background: #fff0f0;
+        color: #c62828;
+        border: 1px solid #f5c2c2;
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+</style>
+
 <body>
 
-<div class="contenedor_formulario">
-    
-    <div class="producto-titulo">
-        <h3>Portal de Administración PIHCSA</h3>
+<div class="login-card">
+
+    <div class="login-header">
+        <h2>Portal de Administración</h2>
+        <p>Acceso exclusivo para administradores</p>
     </div>
-    
+
     <?php if (!empty($error)): ?>
-        <div class="error-msg"><?php echo $error; ?></div>
+        <div class="error-msg">
+            <?php echo $error; ?>
+        </div>
     <?php endif; ?>
 
     <form action="login.php" method="POST">
-        
-        <div class="segmento-campo">
-            <p>USUARIO ADMINISTRADOR</p>
-            <input type="text" id="username" name="username" class="campo" required autocomplete="off">
+
+        <div class="form-group">
+            <label for="username">USUARIO</label>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control"
+                autocomplete="off"
+                required>
         </div>
-        
-        <div class="segmento-campo">
-            <p>CONTRASEÑA</p>
-            <input type="password" id="password" name="password" class="campo" required>
+
+        <div class="form-group">
+            <label for="password">CONTRASEÑA</label>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control"
+                required>
         </div>
-        
-        <div class="login-actions">
-            <button type="submit" class="btn_pihcsa">Iniciar Sesión</button>
-            <a href="index.php" class="btn-back">← Volver al Formulario</a>
+
+        <div class="actions">
+            <button type="submit" class="btn-login">
+                Iniciar Sesión
+            </button>
+
+            <a href="index.php" class="btn-back">
+                ← Volver
+            </a>
         </div>
 
     </form>
+
 </div>
 
 </body>

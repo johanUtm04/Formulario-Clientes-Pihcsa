@@ -12,7 +12,6 @@ $query = "SELECT * FROM formulario_clientes WHERE rfc = '$rfc' LIMIT 1";
 $res = mysqli_query($conexion, $query);
 
 if ($row = mysqli_fetch_assoc($res)) {
-    // Ofuscamos el email para seguridad: j***n@gmail.com
     $correo = $row['email'];
     $partes = explode("@", $correo);
     $email_oculto = substr($partes[0], 0, 1) . "***" . substr($partes[0], -1) . "@" . $partes[1];

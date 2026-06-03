@@ -51,14 +51,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         box-sizing: border-box;
     }
 
-    body {
+    body.login-isolated-page {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        width: 100vw;
         min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        
+        /* Forzamos a limpiar cualquier propiedad Grid previa */
+        display: flex !important;
+        flex-direction: row !important; /* Asegura un flujo limpio */
+        justify-content: center !important; /* Centrado horizontal real */
+        align-items: center !important;     /* Centrado vertical real */
+        
         background: #f4f6f9;
         font-family: 'Segoe UI', sans-serif;
-        padding: 20px;
+    }
+
+    /* Forzar que la tarjeta no herede alineaciones raras */
+    body.login-isolated-page .login-card {
+        margin: auto; /* Empuja de forma equitativa hacia todos los lados */
+        width: 100%;
+        max-width: 420px;
     }
 
     .login-card {
@@ -158,8 +172,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         text-align: center;
     }
 </style>
-
-<body>
+</head>
+<body class="login-isolated-page">
 
 <div class="login-card">
 

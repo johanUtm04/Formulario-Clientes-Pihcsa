@@ -165,48 +165,88 @@ $cliente = mysqli_fetch_assoc($resultado);
 
     <div class="docs-section">
         <h3>Documentación Adjunta</h3>
-        <ul class="docs-list">
-            <li>
-                <span>Licencia Sanitaria</span>
-                <?php if (!empty($cliente['doc_licencia_sanitaria'])): ?>
-                    <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_licencia_sanitaria']); ?>" target="_blank" class="btn-view">Ver Documento</a>
-                <?php else: ?>
-                    <span class="no-doc">No cargado</span>
-                <?php endif; ?>
-            </li>
-            <li>
-                <span>Aviso de Responsable Sanitario</span>
-                <?php if (!empty($cliente['doc_aviso_responsableSanitario'])): ?>
-                    <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_aviso_responsableSanitario']); ?>" target="_blank" class="btn-view">Ver Documento</a>
-                <?php else: ?>
-                    <span class="no-doc">No cargado</span>
-                <?php endif; ?>
-            </li>
-            <li>
-                <span>Aviso de Funcionamiento</span>
-                <?php if (!empty($cliente['doc_aviso_funcionamiento'])): ?>
-                    <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_aviso_funcionamiento']); ?>" target="_blank" class="btn-view">Ver Documento</a>
-                <?php else: ?>
-                    <span class="no-doc">No cargado</span>
-                <?php endif; ?>
-            </li>
-            <li>
-                <span>INE Responsable Sanitario</span>
-                <?php if (!empty($cliente['doc_ine_responsableSanitario'])): ?>
-                    <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_ine_responsableSanitario']); ?>" target="_blank" class="btn-view">Ver Documento</a>
-                <?php else: ?>
-                    <span class="no-doc">No cargado</span>
-                <?php endif; ?>
-            </li>
-            <li>
-                <span>Firma Digital Custodiada</span>
-                <?php if (!empty($cliente['firma_digital'])): ?>
-                    <span class="btn-view" style="background:#28a745;">✓ Registrada</span>
-                <?php else: ?>
-                    <span class="no-doc">Sin firma</span>
-                <?php endif; ?>
-            </li>
-        </ul>
+            <ul class="docs-list">
+                <li>
+                    <span>Licencia Sanitaria</span>
+                    <?php if (!empty($cliente['doc_licencia_sanitaria'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_licencia_sanitaria']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Aviso de Responsable Sanitario</span>
+                    <?php if (!empty($cliente['doc_aviso_responsableSanitario'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_aviso_responsableSanitario']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Aviso de Funcionamiento</span>
+                    <?php if (!empty($cliente['doc_aviso_funcionamiento'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_aviso_funcionamiento']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>INE Responsable Sanitario</span>
+                    <?php if (!empty($cliente['doc_ine_responsableSanitario'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_ine_responsableSanitario']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>INE Representante Legal</span>
+                    <?php if (!empty($cliente['doc_ine_representanteLegal'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_ine_representanteLegal']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Comprobante de Domicilio</span>
+                    <?php if (!empty($cliente['doc_comprobante_domicilio'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['doc_comprobante_domicilio']); ?>" target="_blank" class="btn-view">Ver Documento</a>
+                    <?php else: ?>
+                        <span class="no-doc">No cargado</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Fotografía de la Fachada</span>
+                    <?php if (!empty($cliente['img_fachada'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['img_fachada']); ?>" target="_blank" class="btn-view" style="background: #e67e22;">Ver Imagen</a>
+                    <?php else: ?>
+                        <span class="no-doc">Sin Imagen</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Fotografía Vista Interna</span>
+                    <?php if (!empty($cliente['img_almacen'])): ?>
+                        <a href="uploads/<?php echo htmlspecialchars($cliente['rfc']); ?>/<?php echo htmlspecialchars($cliente['img_almacen']); ?>" target="_blank" class="btn-view" style="background: #e67e22;">Ver Imagen</a>
+                    <?php else: ?>
+                        <span class="no-doc">Sin Imagen</span>
+                    <?php endif; ?>
+                </li>
+
+                <li>
+                    <span>Firma Digital Custodiada</span>
+                    <?php if (!empty($cliente['firma_digital'])): ?>
+                        <span class="btn-view" style="background: #28a745; cursor: default;">✓ Registrada</span>
+                    <?php else: ?>
+                        <span class="no-doc" style="color: #dc3545; font-weight: bold;">Falta Firma</span>
+                    <?php endif; ?>
+                </li>
+            </ul>
     </div>
 </div>
 

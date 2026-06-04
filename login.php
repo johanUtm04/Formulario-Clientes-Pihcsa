@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $password = trim($_POST['password']);
 
         if (!empty($username) && !empty($password)) {
-            $sql = "SELECT id, password, nombre FROM usuarios_admin WHERE username = '$username' LIMIT 1";
+            $sql = "SELECT id, password, nombre FROM authorized_users WHERE username = '$username' LIMIT 1";
             $resultado = mysqli_query($conexion, $sql);
 
             if ($resultado && mysqli_num_rows($resultado) == 1) {
@@ -58,19 +58,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         width: 100vw;
         min-height: 100vh;
         
-        /* Forzamos a limpiar cualquier propiedad Grid previa */
         display: flex !important;
-        flex-direction: row !important; /* Asegura un flujo limpio */
-        justify-content: center !important; /* Centrado horizontal real */
-        align-items: center !important;     /* Centrado vertical real */
+        flex-direction: row !important; 
+        justify-content: center !important;
+        align-items: center !important;    
         
         background: #f4f6f9;
         font-family: 'Segoe UI', sans-serif;
     }
 
-    /* Forzar que la tarjeta no herede alineaciones raras */
     body.login-isolated-page .login-card {
-        margin: auto; /* Empuja de forma equitativa hacia todos los lados */
+        margin: auto; 
         width: 100%;
         max-width: 420px;
     }

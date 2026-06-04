@@ -8,7 +8,7 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 
 require_once 'conexion.php';
 
-$sql = "SELECT id, razon_social, rfc, fecha_registro FROM formulario_clientes ORDER BY fecha_registro DESC";
+$sql = "SELECT id, razon_social, rfc, fecha_registro FROM clients_form ORDER BY fecha_registro DESC";
 $resultado = mysqli_query($conexion, $sql);
 ?>
 

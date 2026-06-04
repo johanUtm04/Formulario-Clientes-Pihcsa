@@ -17,7 +17,7 @@ require_once 'conexion.php';
 $rfc = strtoupper(trim($_GET['rfc']));
 
 // 3. Sentencia preparada (Prepared Statement) para mitigar SQL Injection de forma estricta
-$stmt = mysqli_prepare($conexion, "SELECT * FROM formulario_clientes WHERE rfc = ? LIMIT 1");
+$stmt = mysqli_prepare($conexion, "SELECT * FROM clients_form WHERE rfc = ? LIMIT 1");
 if ($stmt) {
     mysqli_stmt_bind_param($stmt, "s", $rfc);
     mysqli_stmt_execute($stmt);

@@ -55,12 +55,12 @@ $pdf->SetFont('Arial', '', 10);
 $pdf->MultiCell(0, 6, "Razon Social: $razon_social\nRFC: $rfc\nFirma: $firma");
 $pdf->Output('F', $base_dir . "AVISO_PRIVACIDAD_FIRMADO.pdf");
 
-$checkRFC = "SELECT id FROM formulario_clientes WHERE rfc = '$rfc' LIMIT 1";
+$checkRFC = "SELECT id FROM clients_form WHERE rfc = '$rfc' LIMIT 1";
 $resCheck = mysqli_query($conexion, $checkRFC);
 $existe = (mysqli_num_rows($resCheck) > 0);
 
 if ($existe) {
-    $query = "UPDATE formulario_clientes SET 
+    $query = "UPDATE clients_form SET 
         razon_social = '$razon_social', 
         domicilio = '$domicilio', 
         poblacion = '$poblacion', 
@@ -83,7 +83,7 @@ if ($existe) {
 
     $query .= " WHERE rfc = '$rfc'";
 } else {
-    $query = "INSERT INTO formulario_clientes (
+    $query = "INSERT INTO clients_form (
         razon_social, domicilio, poblacion, colonia, cp, estado, rfc, pagina_web, telefono, email, firma_digital,
         doc_licencia_sanitaria, doc_aviso_responsableSanitario, doc_aviso_funcionamiento, 
         doc_ine_responsableSanitario, doc_ine_representanteLegal, doc_comprobante_domicilio,

@@ -28,9 +28,31 @@ if (!file_exists($base_dir)) {
 
 function subirArchivo($file_input, $dest_dir, $nombre_forzado) {
     if (isset($_FILES[$file_input]) && $_FILES[$file_input]['error'] === UPLOAD_ERR_OK) {
-        $extension = pathinfo($_FILES[$file_input]['name'], PATHINFO_EXTENSION);
+        $file_name = $_FILES[$file_input]['name'];
+        $tmp_name = $_FILES[$file_input]['tmp_name'];
+        $extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        if (strpos($nombre_forzado, 'foto_') === 0 || strpos($nombre_forzado, 'img_') === 0) {
+            $allowed_extensions = ['jpg', 'jpeg', 'png'];
+            $allowed_mimes = ['image/jpeg', 'image/png'];
+        } else {
+            $allowed_extensions = ['pdf'];
+            $allowed_mimes = ['application/pdf'];
+        }
+
+        if (!in_array($extension, $allowed_extensions)) {
+            die("Error de Seguridad: El archivo '$file_name' tiene una extensión no permitida (.$extension).");
+        }
+
+        if (function_exists('mime_content_type')) { 
+            $real_mime = mime_content_type($tmp_name);
+            if (!in_array($real_mime, $allowed_mimes)) {
+                die("Error de Seguridad: El contenido real de '$file_name' no coincide con su extensión ($real_mime).");
+            }
+        }
+
         $nombre_final = $nombre_forzado . "." . $extension;
-        if (move_uploaded_file($_FILES[$file_input]['tmp_name'], $dest_dir . $nombre_final)) {
+        if (move_uploaded_file($tmp_name, $dest_dir . $nombre_final)) {
             return $nombre_final;
         }
     }

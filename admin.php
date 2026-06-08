@@ -288,7 +288,7 @@ $resultado = mysqli_query($conexion, $sql);
                         </div>
                         <a href="ver_expediente.php?rfc=<?php echo urlencode($rfc_registro); ?>&tipo=<?php echo urlencode($tipo_registro); ?>" class="btn-ver">Ver Documentos</a>
                     <?php else: ?>
-                        <span class="status-empty">Sin carpeta física</span>
+                        <span class="status-empty">Accede desde el panel de Proveedores</span>
                     <?php endif; ?>
                 </div>
             </div>

@@ -1,0 +1,150 @@
+-- MySQL dump 10.13  Distrib 8.4.3, for Win64 (x86_64)
+--
+-- Host: localhost    Database: pihcsa_dossier_clients_providers
+-- ------------------------------------------------------
+-- Server version	8.4.3
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `authorized_users`
+--
+
+DROP TABLE IF EXISTS `authorized_users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `authorized_users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `nombre` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `fecha_creacion` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `authorized_users`
+--
+
+LOCK TABLES `authorized_users` WRITE;
+/*!40000 ALTER TABLE `authorized_users` DISABLE KEYS */;
+INSERT INTO `authorized_users` VALUES (1,'admin','$2y$10$mC3Bv8AghQfK.p8G3G9p1ex8A29gC7qLgVvWvE9z3zXhN2yM3K6U.','Administrador PIHCSA','2026-06-01 23:03:25'),(2,'johan','$2y$10$oR1T6oT4802M9T79ZtYfLuYmB.7ZJ72X3r8FclC2q6D7rJjC2tZmq','johan','2026-06-01 23:20:55'),(3,'johan2004','morelia123','johan ','2026-06-02 02:45:19'),(4,'nuevo_usuario','$2y$10$NCKk.Rv8WF1O0C9uVJzon.AUVujpS58aNF0oKNOxbXIb2ts8upnd2','Nuevo admin','2026-06-02 06:12:50'),(5,'jjrayder','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','johan','2026-06-02 17:54:41'),(8,'rayder','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','johan','2026-06-02 17:55:16'),(14,'ren','8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92','Johan Admin','2026-06-02 17:57:34');
+/*!40000 ALTER TABLE `authorized_users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `clients_form`
+--
+
+DROP TABLE IF EXISTS `clients_form`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `clients_form` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `razon_social` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `domicilio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `poblacion` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `colonia` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `cp` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `estado` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `rfc` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `pagina_web` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `telefono` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `firma_digital` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci,
+  `doc_licencia_sanitaria` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `doc_aviso_responsableSanitario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `doc_aviso_funcionamiento` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `doc_ine_responsableSanitario` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `doc_ine_representanteLegal` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `doc_comprobante_domicilio` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `img_fachada` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `img_almacen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rfc` (`rfc`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `clients_form`
+--
+
+LOCK TABLES `clients_form` WRITE;
+/*!40000 ALTER TABLE `clients_form` DISABLE KEYS */;
+INSERT INTO `clients_form` VALUES (7,'KFC Morelia','San Juan','Morelia','Colonia Centro','58304','Michoacán','KFC0123456789','kfconline.com','4435817229','kfcmorelia@gmail.com','Johan López','doc_licencia_sanitaria.pdf','doc_aviso_responsableSanitario.pdf','doc_aviso_funcionamiento.pdf','doc_ine_responsableSanitario.pdf','doc_ine_representanteLegal.pdf','doc_comprobante_domicilio.pdf','img_fachada.jpg','img_almacen.jpg','2026-06-08 15:38:12');
+/*!40000 ALTER TABLE `clients_form` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `providers_form`
+--
+
+DROP TABLE IF EXISTS `providers_form`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `providers_form` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `rfc` varchar(13) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `razon_social` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `domicilio` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `poblacion` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `colonia` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cp` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `estado` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `telefono` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pagina_web` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `provider_type_selection` enum('licencia','aviso') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `doc_licencia_sanitaria` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_aviso_responsable_sanitario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_aviso_funcionamiento` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_situacion_fiscal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_opinion_cumplimiento_sat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_caratula_cuenta_bancaria` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_comprobante_domicilio` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_registro_sanitario_vigente` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_hoja_seguridad_ficha_tecnica` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_ine_representante_legal` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `doc_ine_responsable_sanitario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img_placa_responsable_sanitario` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img_fachada_calle` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `img_vista_interna_almacen` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `privacy_agreement_accepted` tinyint(1) NOT NULL DEFAULT '0',
+  `fecha_registro` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `rfc` (`rfc`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `providers_form`
+--
+
+LOCK TABLES `providers_form` WRITE;
+/*!40000 ALTER TABLE `providers_form` DISABLE KEYS */;
+INSERT INTO `providers_form` VALUES (2,'BKING01234567','Burguer King Deidad','San Jesus','Morelia','Colonia Centro','58304','Michoacán','bking@gmail.com','4435817229','bking@gmail.com','licencia','licencia_sanitaria.pdf','aviso_responsable.pdf','aviso_funcionamiento.pdf','situacion_fiscal.pdf','opinion_sat.pdf','cuenta_bancaria.pdf','domicilio.pdf','registro_sanitario.pdf','hoja_seguridad.pdf','ine_representante.pdf','ine_responsable_sanitario.pdf','foto_placa.jpeg','foto_fachada.jpg','foto_almacen.png',0,'2026-06-08 15:45:00'),(3,'CPP0123456789','Cinicos podcast','Terraria','CDMX','PIPEPLUCK','58304','Michoacán','cinicospodcast@gmail.com','4435817229','cp@gmail.com','licencia','licencia_sanitaria.pdf','aviso_responsable.pdf','aviso_funcionamiento.pdf','situacion_fiscal.pdf','opinion_sat.pdf','cuenta_bancaria.pdf','domicilio.pdf','registro_sanitario.pdf','hoja_seguridad.pdf','ine_representante.pdf','ine_responsable_sanitario.pdf','foto_placa.jpeg','foto_fachada.jpg','foto_almacen.png',0,'2026-06-08 16:08:06'),(4,'CRISTIANORONA','EL CRISTIANO RONALDO RIFA','Av. Acueducto #1040, Int. 4B','Morelia','Independencia','58010','Michoacán','johanlopezrey1@gmail.com','4439876543','','aviso',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,0,'2026-06-08 17:02:38');
+/*!40000 ALTER TABLE `providers_form` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-06-08 16:42:27
